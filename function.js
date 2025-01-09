@@ -56,7 +56,7 @@ function showRecommended(movies) {
              <div class="overview ${index >= 5 ? "hidden" : "visible"}">
                  <p>${overview}</p>
                  <div class="buttons">
-                     <button class="watch-now">Watch now</button>
+                     <button class="watch-now">Stream</button>
                      <button class="watch-later">+</button>
                  </div>
              </div>
@@ -73,7 +73,7 @@ function showRecommended(movies) {
              <h3>${title}</h3> 
                  <p>${overview}</p>
                  <div class="buttons">
-                     <button class="watch-now">Watch now</button>
+                     <button class="watch-now">Stream</button>
                      <button class="watch-later">+</button>
                  </div>
              </div>
@@ -130,6 +130,30 @@ form.addEventListener("submit", (e) => {
   }
 });
 
+
+
+
+const networkStatus = document.getElementById("network-status");
+
+// Function to update the network status
+function updateNetworkStatus() {
+  if (navigator.onLine) {
+    networkStatus.textContent = "You are online";
+    networkStatus.classList.remove("offline");
+    networkStatus.classList.add("online");
+  } else {
+    networkStatus.textContent = "You are offline";
+    networkStatus.classList.remove("online");
+    networkStatus.classList.add("offline");
+  }
+}
+
+// Add event listeners for online and offline events
+window.addEventListener("online", updateNetworkStatus);
+window.addEventListener("offline", updateNetworkStatus);
+
+// Initial status check
+updateNetworkStatus();
 
 
 

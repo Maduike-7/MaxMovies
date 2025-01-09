@@ -11,13 +11,26 @@
 body {
   font-family: "Montserrat", sans-serif;
   margin: 0;
-  background-color: var(--primary-color);
+  background-color: #000;
   color: #fff;
 }
 
-#preloader {
 
+
+/* .movie-l, .movie-s {
+  display: block;
+  margin: 10px;
+  opacity: 1;
+  visibility: visible;
 }
+
+.movie-info, .overview {
+  opacity: 1;
+  visibility: visible;
+} */
+
+
+
 /* Preloader */
 .container-preloader {
    align-items:center;
@@ -237,6 +250,49 @@ button {
   outline: none;
   border: 1px solid var(--accent-color);
   color: var(--accent-color);
+}
+
+
+/* network-status styles section */
+
+#network-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 10px auto;
+  max-width: 400px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#network-status.online {
+  background-color: #4caf50; /* Green for online */
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(76, 175, 80, 0.5); /* Subtle green glow */
+}
+
+#network-status.offline {
+  background-color: #f44336; /* Red for offline */
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(244, 67, 54, 0.5); /* Subtle red glow */
+}
+
+#network-status.online:before,
+#network-status.offline:before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background-color: currentColor;
+  box-shadow: 0 0 5px rgba(255, 255, );
 }
 
 .most-popular {
