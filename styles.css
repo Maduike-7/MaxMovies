@@ -217,7 +217,7 @@ button {
   
 }
 
-#maxmovies {
+#NovaSparks {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -264,7 +264,7 @@ button {
   font-weight: bold;
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 10px auto;
+  margin: 10px 5px;
   max-width: 400px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -294,6 +294,31 @@ button {
   background-color: currentColor;
   box-shadow: 0 0 5px rgba(255, 255, );
 }
+
+
+
+
+
+.horizontal-list {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  overflow-x: hidden;
+  position: relative;
+  touch-action: pan-y pinch-zoom;
+  will-change: transform;
+  user-select: none;
+}
+
+.movie-l {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+
+
+
+
 
 .most-popular {
   display: flex;
