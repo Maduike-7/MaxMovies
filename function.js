@@ -1,12 +1,14 @@
 const API_URL = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=1";
 const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
 const SEARCH_API = 'https://api.themoviedb.org/3/search/movie?api_key=3fd2be6f0c70a2a598f084ddfb75487c&query="';
+const PROVIDER_API = 'https://api.themoviedb.org/3/movie/';
 
 const main = document.getElementById("main");
 const form = document.getElementById("form");
 const search = document.getElementById("search");
 
-// Carousel drag functionality
+// Carousel drag functionality (unchanged)
+
 function initCarousel(horizontalList) {
   let isDragging = false;
   let startPosition = 0;
@@ -114,6 +116,13 @@ async function getMovies(url) {
   }
 }
 
+async function getMovieProviders(movieId) {
+  const res = await fetch(`${PROVIDER_API}${movieId}/watch/providers?api_key=3fd2be6f0c70a2a598f084ddfb75487c`);
+  const data = await res.json();
+  return data.results;  // Returns a list of providers for the movie
+}
+
+
 function showRecommended(movies) {
   main.innerHTML = "";
   const mostPopularMovies = document.createElement("div");
@@ -125,7 +134,6 @@ function showRecommended(movies) {
   recommendedMovies.classList.add("recommended");
   horizontalList.classList.add("horizontal-list");
 
-  // Add grab cursor style
   horizontalList.style.cursor = 'grab';
   horizontalList.style.userSelect = 'none';
   horizontalList.style.touchAction = 'pan-y pinch-zoom';
@@ -137,6 +145,17 @@ function showRecommended(movies) {
   movies.forEach((movie, index) => {
     const { title, backdrop_path, vote_average, overview } = movie;
     const movieElement = document.createElement("div");
+
+
+    // Fetch providers for the movie
+    // const providers = await getMovieProviders(id);
+    let streamLink = '';
+
+    // Check if there are streaming services available
+    // if (providers && providers.US && providers.US.flatrate) {
+    //   streamLink = providers.US.flatrate[0].link; 
+    // }
+
 
     if (index < 5) {
       movieElement.classList.add("movie-l");
@@ -179,19 +198,53 @@ function showRecommended(movies) {
     }
   });
 
-  // Initialize carousel functionality
   initCarousel(horizontalList);
 }
 
-// Rest of your code remains the same...
-getMovies(API_URL);
+function searchMovies(movies) {
+  main.innerHTML = "";
+  const searchResults = document.createElement("div");
+  searchResults.classList.add("recommended");
+  searchResults.innerHTML = "<h2>Search Results</h2>";
 
+  movies.forEach((movie) => {
+    const { title, backdrop_path, vote_average, overview } = movie;
+    const movieElement = document.createElement("div");
+
+    movieElement.classList.add("movie-s");
+    movieElement.innerHTML = ` 
+        <img src="${IMG_PATH + backdrop_path}" alt="${title}">
+        <div class="movie-info">
+             <h3>${title}</h3>
+             <span class="vote">★ ${vote_average}</span>
+         </div>
+         <div class="overview hidden">
+             <h3>${title}</h3> 
+             <p>${overview}</p>
+             <div class="buttons">
+                 <button class="watch-now">Stream</button>
+                 <button class="watch-later">+</button>
+             </div>
+         </div>
+    `;
+
+    searchResults.appendChild(movieElement);
+  });
+
+  main.appendChild(searchResults);
+}
+
+// Fix search effect with transition
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const searchTerm = search.value;
-  if (searchTerm && searchTerm !== "") {
+  const searchTerm = search.value.trim();
+  if (searchTerm) {
+    main.innerHTML = "<h2>Searching...</h2>"; // Show "Searching..." message
     getMovies(SEARCH_API + searchTerm);
   } else {
-    window.location.reload();
+    getMovies(API_URL); // If empty search term, load popular movies
   }
 });
+
+// Fetch initial popular movies on page load
+getMovies(API_URL);
