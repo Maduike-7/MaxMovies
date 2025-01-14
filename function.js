@@ -78,7 +78,7 @@ function initCarousel(horizontalList) {
       -getMaxTranslate()
     );
 
-    horizontalList.style.transition = 'transform 0.3s ease-out';
+    horizontalList.style.transition = 'transform 0.5s ease-out';
     setTransform();
     previousTranslate = currentTranslate;
   }
@@ -195,5 +195,3 @@ form.addEventListener("submit", (e) => {
     window.location.reload();
   }
 });
-
-
