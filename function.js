@@ -7,8 +7,6 @@ const main = document.getElementById("main");
 const form = document.getElementById("form");
 const search = document.getElementById("search");
 
-// Carousel drag functionality (unchanged)
-
 function initCarousel(horizontalList) {
   let isDragging = false;
   let startPosition = 0;
@@ -18,97 +16,83 @@ function initCarousel(horizontalList) {
   let animationID = 0;
   let startTime = null;
 
-  // Prevent default behavior for mouse events
   horizontalList.addEventListener('dragstart', (e) => e.preventDefault());
 
-  // Touch events
   horizontalList.addEventListener('touchstart', touchStart);
-  horizontalList.addEventListener('touchmove', touchMove);
-  horizontalList.addEventListener('touchend', touchEnd);
+horizontalList.addEventListener('touchmove', touchMove);
+horizontalList.addEventListener('touchend', touchEnd);
 
-  // Mouse events
-  horizontalList.addEventListener('mousedown', touchStart);
-  horizontalList.addEventListener('mousemove', touchMove);
-  horizontalList.addEventListener('mouseup', touchEnd);
-  horizontalList.addEventListener('mouseleave', touchEnd);
+horizontalList.addEventListener('mousedown', touchStart);
+horizontalList.addEventListener('mousemove', touchMove);
+horizontalList.addEventListener('mouseup', touchEnd);
+horizontalList.addEventListener('mouseleave', touchEnd);
 
-  function touchStart(event) {
-    startTime = new Date();
-    isDragging = true;
-    startPosition = getPositionX(event);
-    animationID = requestAnimationFrame(animation);
-    horizontalList.style.cursor = 'grabbing';
-    horizontalList.style.transition = 'none';
+function touchStart(event) {
+  startTime = new Date();
+  isDragging = true;
+  startPosition = getPositionX(event);
+  animationID = requestAnimationFrame(animation);
+  horizontalList.style.cursor = 'grabbing';
+  horizontalList.style.transition = 'none';
+}
+
+function touchMove(event) {
+  if (!isDragging) return;
+  const currentPosition = getPositionX(event);
+  const moveDistance = currentPosition - startPosition;
+  currentTranslate = previousTranslate + moveDistance;
+  if (currentTranslate > 0) {
+    currentTranslate = currentTranslate / 3;
+  } else if (currentTranslate < -getMaxTranslate()) {
+    const overflowTranslate = currentTranslate + getMaxTranslate();
+    currentTranslate = -getMaxTranslate() + (overflowTranslate / 3);
   }
+}
 
-  function touchMove(event) {
-    if (!isDragging) return;
-    
-    const currentPosition = getPositionX(event);
-    const moveDistance = currentPosition - startPosition;
-    currentTranslate = previousTranslate + moveDistance;
-    
-    // Add resistance at the edges
-    if (currentTranslate > 0) {
-      currentTranslate = currentTranslate / 3;
-    } else if (currentTranslate < -getMaxTranslate()) {
-      const overflowTranslate = currentTranslate + getMaxTranslate();
-      currentTranslate = -getMaxTranslate() + (overflowTranslate / 3);
-    }
+function touchEnd() {
+  isDragging = false;
+  cancelAnimationFrame(animationID);
+  horizontalList.style.cursor = 'grab';
+  const endTime = new Date();
+  const timeElapsed = endTime - startTime;
+  const moveDistance = currentTranslate - previousTranslate;
+  const velocity = Math.abs(moveDistance) / timeElapsed;
+  if (velocity > 0.5) {
+    const momentum = velocity * 100 * (moveDistance < 0 ? -1 : 1);
+    currentTranslate = previousTranslate + momentum;
   }
+  currentTranslate = Math.max(
+    Math.min(currentTranslate, 0),
+    -getMaxTranslate()
+  );
+  horizontalList.style.transition = 'transform 0.5s ease-out';
+  setTransform();
+  previousTranslate = currentTranslate;
+}
 
-  function touchEnd() {
-    isDragging = false;
-    cancelAnimationFrame(animationID);
-    horizontalList.style.cursor = 'grab';
+function animation() {
+  setTransform();
+  if (isDragging) requestAnimationFrame(animation);
+}
 
-    // Calculate velocity for momentum scrolling
-    const endTime = new Date();
-    const timeElapsed = endTime - startTime;
-    const moveDistance = currentTranslate - previousTranslate;
-    const velocity = Math.abs(moveDistance) / timeElapsed;
+function getPositionX(event) {
+  return event.type.includes('mouse') 
+    ? event.pageX 
+    : event.touches[0].clientX;
+}
 
-    // Snap to closest position with momentum
-    if (velocity > 0.5) {
-      const momentum = velocity * 100 * (moveDistance < 0 ? -1 : 1);
-      currentTranslate = previousTranslate + momentum;
-    }
+function setTransform() {
+  horizontalList.style.transform = `translateX(${currentTranslate}px)`;
+}
 
-    // Ensure we don't scroll beyond boundaries
-    currentTranslate = Math.max(
-      Math.min(currentTranslate, 0),
-      -getMaxTranslate()
-    );
-
-    horizontalList.style.transition = 'transform 0.5s ease-out';
-    setTransform();
-    previousTranslate = currentTranslate;
-  }
-
-  function animation() {
-    setTransform();
-    if (isDragging) requestAnimationFrame(animation);
-  }
-
-  function getPositionX(event) {
-    return event.type.includes('mouse') 
-      ? event.pageX 
-      : event.touches[0].clientX;
-  }
-
-  function setTransform() {
-    horizontalList.style.transform = `translateX(${currentTranslate}px)`;
-  }
-
-  function getMaxTranslate() {
-    return horizontalList.scrollWidth - horizontalList.clientWidth;
-  }
+function getMaxTranslate() {
+  return horizontalList.scrollWidth - horizontalList.clientWidth;
+}
 }
 
 async function getMovies(url) {
   const res = await fetch(url);
   const data = await res.json();
-
   if (search.value && search.value !== "") {
     searchMovies(data.results);
   } else {   
@@ -119,9 +103,8 @@ async function getMovies(url) {
 async function getMovieProviders(movieId) {
   const res = await fetch(`${PROVIDER_API}${movieId}/watch/providers?api_key=3fd2be6f0c70a2a598f084ddfb75487c`);
   const data = await res.json();
-  return data.results;  // Returns a list of providers for the movie
+  return data.results;
 }
-
 
 function showRecommended(movies) {
   main.innerHTML = "";
@@ -146,16 +129,7 @@ function showRecommended(movies) {
     const { title, backdrop_path, vote_average, overview } = movie;
     const movieElement = document.createElement("div");
 
-
-    // Fetch providers for the movie
-    // const providers = await getMovieProviders(id);
     let streamLink = '';
-
-    // Check if there are streaming services available
-    // if (providers && providers.US && providers.US.flatrate) {
-    //   streamLink = providers.US.flatrate[0].link; 
-    // }
-
 
     if (index < 5) {
       movieElement.classList.add("movie-l");
@@ -235,17 +209,15 @@ function searchMovies(movies) {
   main.appendChild(searchResults);
 }
 
-// Fix search effect with transition
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const searchTerm = search.value.trim();
   if (searchTerm) {
-    main.innerHTML = "<h2>Searching...</h2>"; // Show "Searching..." message
+    main.innerHTML = "<h2>Searching...</h2>";
     getMovies(SEARCH_API + searchTerm);
   } else {
-    getMovies(API_URL); // If empty search term, load popular movies
-  },
+    getMovies(API_URL);
+  }
 });
 
-// Fetch initial popular movies on page load
 getMovies(API_URL);

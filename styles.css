@@ -6,8 +6,6 @@
   --accent-color: #fff;
 }
 
-
-
 body {
   font-family: "Montserrat", sans-serif;
   margin: 0;
@@ -15,184 +13,179 @@ body {
   color: #fff;
 }
 
-
-
-/* .movie-l, .movie-s {
-  display: block;
-  margin: 10px;
-  opacity: 1;
-  visibility: visible;
-}
-
-.movie-info, .overview {
-  opacity: 1;
-  visibility: visible;
-} */
-
-
-
-/* Preloader */
 .container-preloader {
-   align-items:center;
-   cursor:none;
-   display:flex;
-   height: 100%;
-   justify-content: center;
-   position: fixed;
-   left:0;
-   top:0;
-   width:100%;
-   z-index:900;
+  align-items: center;
+  cursor: none;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 900;
   background: #000;
 }
+
 .container-preloader .animation-preloader {
-   position:absolute;
-   z-index: 100;
+  position: absolute;
+  z-index: 100;
 }
-/* Spinner Loading */
+
 .container-preloader .animation-preloader .spinner {
-   animation: spinner 1s infinite linear;
-   border-radius: 50%;
-   border: 5px solid rgba(0, 0, 0, 0.2);
-   border-top-color: darkred;
-   border-bottom-color: #fff;
-   height: 5em;
-   margin: 0 auto 3.5em auto;
-   width: 5em;
+  animation: spinner 1s infinite linear;
+  border-radius: 50%;
+  border: 5px solid rgba(0, 0, 0, 0.2);
+  border-top-color: darkred;
+  border-bottom-color: #fff;
+  height: 5em;
+  margin: 0 auto 3.5em auto;
+  width: 5em;
 }
-/* Loading text */
+
 .container-preloader .animation-preloader .txt-loading {
-   font: bold 5rem 'Montserrat', sans-serif;
-   text-align: center;
-   user-select: none;
-   font-weight: 300;
+  font: bold 5rem 'Montserrat', sans-serif;
+  text-align: center;
+  user-select: none;
+  font-weight: 300;
 }
+
 .container-preloader .animation-preloader .txt-loading .movies {
-   font-size: 5rem;
+  font-size: 5rem;
 }
+
 .container-preloader .animation-preloader .txt-loading .max::after {
-   animation: characters 4s infinite;
-   color: #fff;
-   content: attr(preloader-text);
-   left: 0;
-   opacity: 0;
-   position: absolute;
-   top: 0;
-   transform: rotateY(-90deg);
+  animation: characters 4s infinite;
+  color: #fff;
+  content: attr(preloader-text);
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transform: rotateY(-90deg);
 }
+
 .container-preloader .animation-preloader .txt-loading .movies::after {
-   animation: characters 4.5s infinite;
-   color: darkred;
-   content: attr(preloader-text);
-   left: 0;
-   opacity: 0;
-   position: absolute;
-   top: 0;
-   transform: rotateY(-90deg);
-   color: darkred;
+  animation: characters 4.5s infinite;
+  color: darkred;
+  content: attr(preloader-text);
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transform: rotateY(-90deg);
+  color: darkred;
 }
+
 .container-preloader .animation-preloader .txt-loading .max {
-   color: rgba(0, 0, 0, 0.2);
-   position: relative;
+  color: rgba(0, 0, 0, 0.2);
+  position: relative;
 }
+
 .container-preloader .animation-preloader .txt-loading .movies {
-   color: rgba(0, 0, 0, 0.2);
-   position: relative;
+  color: rgba(0, 0, 0, 0.2);
+  position: relative;
 }
+
 .container-preloader .animation-preloader .txt-loading .max:nth-child(2):before {
-   animation-delay: 0.2s;
+  animation-delay: 0.2s;
 }
+
 .container-preloader .animation-preloader .txt-loading .max:nth-child(3):before {
-   animation-delay: 0.4s;
+  animation-delay: 0.4s;
 }
+
 .container-preloader .animation-preloader .txt-loading .max:nth-child(4):before {
-   animation-delay: 0.6s;
+  animation-delay: 0.6s;
 }
+
 .container-preloader .animation-preloader .txt-loading .movies:nth-child(2):before {
-   animation-delay: 0.8s;
+  animation-delay: 0.8s;
 }
+
 .container-preloader .animation-preloader .txt-loading .movies:nth-child(3):before {
-   animation-delay: 1s;
+  animation-delay: 1s;
 }
+
 .container-preloader .animation-preloader .txt-loading .movies:nth-child(4):before {
-   animation-delay: 1.2s;
+  animation-delay: 1.2s;
 }
+
 .container-preloader .animation-preloader .txt-loading .movies:nth-child(5):before {
   animation-delay: 1.2s;
 }
+
 .container-preloader .animation-preloader .txt-loading .movies:nth-child(6):before {
   animation-delay: 1.2s;
 }
+
 .container-preloader .loader-section {
-   background-color: #000;
-   height: 100%;
-   position: fixed;
-   top: 0;
-   width: calc(50% + 1px);
+  background-color: #000;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  width: calc(50% + 1px);
 }
+
 .container-preloader .loader-section.section-left {
-   left: 0;
+  left: 0;
 }
+
 .container-preloader .loader-section.section-right {
-   right: 0;
+  right: 0;
 }
-/* Fade effect on loading animation */
+
 .loaded .animation-preloader {
-   opacity: 0;
-   transition: 0.3s ease-out;
+  opacity: 0;
+  transition: 0.3s ease-out;
 }
-/* Curtain effect */
+
 .loaded .loader-section.section-left {
-   transform: translateX(-101%);
-   transition: 0.7s 0.3s all cubic-bezier(0.1, 0.1, 0.1, 1.000);
+  transform: translateX(-101%);
+  transition: 0.7s 0.3s all cubic-bezier(0.1, 0.1, 0.1, 1.000);
 }
+
 .loaded .loader-section.section-right {
-   transform: translateX(101%);
-   transition: 0.7s 0.3s all cubic-bezier(0.1, 0.1, 0.1, 1.000);
+  transform: translateX(101%);
+  transition: 0.7s 0.3s all cubic-bezier(0.1, 0.1, 0.1, 1.000);
 }
-/* Animation of the preloader */
+
 @keyframes spinner {
-   to {
-       transform: rotateZ(360deg);
-  }
-}
-/* Animation of letters loading from the preloader */
-@keyframes characters {
-   0%, 75%, 100% {
-       opacity: 0;
-       transform: rotateY(-90deg);
-  }
-   25%, 50% {
-       opacity: 1;
-       transform: rotateY(0deg);
-  }
-}
-/* Laptop size back (laptop, tablet, cell phone) */
-@media screen and (max-width: 767px) {
-  /* Preloader */
-  /* Spinner Loading */
-   .container-preloader .animation-preloader .spinner {
-       height: 8em;
-       width: 8em;
-  }
-  /* Text Loading */
-   .container-preloader .animation-preloader .txt-loading {
-       font: bold 3.5em 'Montserrat', sans-serif;
-  }
-}
-@media screen and (max-width: 500px) {
-  /* Prelaoder */
-  /* Spinner Loading */
-   .container-preloader .animation-preloader .spinner {
-       height: 7em;
-       width: 7em;
-  }
-  /*Loading text */
-   .container-preloader .animation-preloader .txt-loading {
-       font: bold 2em 'Montserrat', sans-serif;
+  to {
+    transform: rotateZ(360deg);
   }
 }
 
+@keyframes characters {
+  0%, 75%, 100% {
+    opacity: 0;
+    transform: rotateY(-90deg);
+  }
+  25%, 50% {
+    opacity: 1;
+    transform: rotateY(0deg);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container-preloader .animation-preloader .spinner {
+    height: 8em;
+    width: 8em;
+  }
+  .container-preloader .animation-preloader .txt-loading {
+    font: bold 3.5em 'Montserrat', sans-serif;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .container-preloader .animation-preloader .spinner {
+    height: 7em;
+    width: 7em;
+  }
+  .container-preloader .animation-preloader .txt-loading {
+    font: bold 2em 'Montserrat', sans-serif;
+  }
+}
 
 header {
   padding: 0.1rem;
@@ -214,7 +207,6 @@ header .logo {
 button {
   cursor: pointer;
   color: #000 !important;
-  
 }
 
 #NovaSparks {
@@ -228,7 +220,6 @@ button {
   font-size: 1rem;
   text-align: center;
   cursor: pointer;
-
 }
 
 .search {
@@ -251,9 +242,6 @@ button {
   border: 1px solid var(--accent-color);
   color: var(--accent-color);
 }
-
-
-/* network-status styles section */
 
 #network-status {
   position: fixed;
@@ -290,16 +278,14 @@ button {
   100% { opacity: 1; }
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   #network-status {
-      top: auto;
-      bottom: 1rem;
-      right: 1rem;
-      font-size: 0.875rem;
+    top: auto;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.875rem;
   }
 }
-
 
 .horizontal-list {
   display: flex;
@@ -316,11 +302,6 @@ button {
   flex-shrink: 0;
   transition: transform 0.3s ease;
 }
-
-
-
-
-
 
 .most-popular {
   display: flex;
@@ -341,7 +322,6 @@ button {
   background-color: var(--accent-color);
   border: none;
   border-radius: 100px;
-  
 }
 
 .watch-now {
@@ -370,11 +350,7 @@ button {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    to right,
-    rgba(9, 1, 31, 0.719),
-    rgba(0, 0, 0, 0)
-  );
+  background: linear-gradient(to right, rgba(9, 1, 31, 0.719), rgba(0, 0, 0, 0));
   z-index: 1;
 }
 
@@ -435,7 +411,6 @@ button {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
-  /* Set the maximum number of lines before truncating */
   overflow: hidden;
 }
 
