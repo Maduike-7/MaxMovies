@@ -171,6 +171,7 @@ function showRecommended(movies) {
                      <button class="watch-later">+</button>
                  </div>
              </div>
+             
         `;
     } else {
       movieElement.classList.add("movie-s");
@@ -191,7 +192,7 @@ function showRecommended(movies) {
         `;
     }
 
-    if (index < 5) {
+    if (index < 6) {
       horizontalList.appendChild(movieElement);
     } else {
       recommendedMovies.appendChild(movieElement);
@@ -243,7 +244,7 @@ form.addEventListener("submit", (e) => {
     getMovies(SEARCH_API + searchTerm);
   } else {
     getMovies(API_URL); // If empty search term, load popular movies
-  }
+  },
 });
 
 // Fetch initial popular movies on page load

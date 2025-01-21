@@ -195,7 +195,7 @@ body {
 
 
 header {
-  padding: 0.5rem;
+  padding: 0.1rem;
   display: flex;
   justify-content: space-between;
   background-color: darkred;
@@ -208,7 +208,7 @@ header .logo {
   font-weight: 900;
   color: var(--accent-color);
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 1.4rem;
 }
 
 button {
@@ -256,47 +256,49 @@ button {
 /* network-status styles section */
 
 #network-status {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  margin: 10px 5px;
-  max-width: 400px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  position: fixed;
+  bottom: 1rem;
+  right: 40rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  opacity: 1;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#network-status.connecting {
+  background-color: #ffd700;
+  color: #000;
+  animation: pulse 1.5s infinite;
 }
 
 #network-status.online {
-  background-color: #4caf50; /* Green for online */
-  color: #fff;
-  box-shadow: 0 4px 6px rgba(76, 175, 80, 0.5); /* Subtle green glow */
+  background-color: #4caf50;
+  color: white;
 }
 
 #network-status.offline {
-  background-color: #f44336; /* Red for offline */
-  color: #fff;
-  box-shadow: 0 4px 6px rgba(244, 67, 54, 0.5); /* Subtle red glow */
+  background-color: #f44336;
+  color: white;
 }
 
-#network-status.online:before,
-#network-status.offline:before {
-  content: '';
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin-right: 10px;
-  border-radius: 50%;
-  background-color: currentColor;
-  box-shadow: 0 0 5px rgba(255, 255, );
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
 }
 
-
-
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #network-status {
+      top: auto;
+      bottom: 1rem;
+      right: 1rem;
+      font-size: 0.875rem;
+  }
+}
 
 
 .horizontal-list {
