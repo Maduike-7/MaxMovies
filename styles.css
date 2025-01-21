@@ -188,7 +188,7 @@ body {
 }
 
 header {
-  padding: 0.1rem;
+  padding: 0.1rem 1rem;
   display: flex;
   justify-content: space-between;
   background-color: darkred;
@@ -222,13 +222,25 @@ button {
   cursor: pointer;
 }
 
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
 .search {
+  width: 100%;
   background-color: transparent;
   border: 1px solid var(--primary-color);
   border-radius: 50px;
   font-family: inherit;
   font-size: 1rem;
   padding: 0.5rem 1rem;
+  padding-right: 3rem; /* Space for the icon */
+  color: var(--primary-color);
+  transition: all 0.3s ease;
 }
 
 .search::placeholder {
@@ -241,7 +253,66 @@ button {
   outline: none;
   border: 1px solid var(--accent-color);
   color: var(--accent-color);
+  background-color: var(--background-highlight);
 }
+
+.search-icon {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.search-icon:hover {
+  background-color: var(--accent-color);
+  transform: scale(1.1);
+}
+
+.search-icon:active {
+  transform: scale(0.95);
+}
+
+.search-btn {
+  background-color: var(--primary-color);
+  margin: 0px 5px;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-btn i {
+  font-size: 1.2rem;
+}
+
+.search-btn:hover {
+  background-color: var(--accent-color);
+  transform: scale(1.1);
+}
+
+.search-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 
 #network-status {
   position: fixed;
